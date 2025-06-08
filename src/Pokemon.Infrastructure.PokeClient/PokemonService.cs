@@ -1,4 +1,4 @@
-﻿using Pokemon.Domain.Contracts;
+﻿using Pokemon.Domain.Contracts.Services;
 using Pokemon.Domain.Entities;
 
 namespace Pokemon.Infrastructure.PokeClient
@@ -56,7 +56,8 @@ namespace Pokemon.Infrastructure.PokeClient
                     types,
                     stats,
                     moves,
-                    apiResponse.sprites.front_default
+                    apiResponse.sprites.front_default,
+                    Guid.Empty
                 );
             }
             catch

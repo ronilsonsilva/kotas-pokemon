@@ -1,4 +1,4 @@
-﻿namespace Pokemon.Application.Results
+﻿namespace Pokemon.Application.Pokemons.Results
 {
     public class PokemonDetailResult
     {

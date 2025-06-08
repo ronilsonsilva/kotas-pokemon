@@ -1,5 +1,6 @@
 using Pokemon.Application;
 using Pokemon.Infrastructure.PokeClient;
+using Pokemon.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,9 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddPokeClient();
 builder.Services.AddApplication();
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDataAccess(connectionString);
 
 var app = builder.Build();
 

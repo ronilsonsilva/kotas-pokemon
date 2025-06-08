@@ -1,7 +1,7 @@
-﻿using Pokemon.Application.Results;
-using Pokemon.Domain.Contracts;
+﻿using Pokemon.Application.Pokemons.Results;
+using Pokemon.Domain.Contracts.Services;
 
-namespace Pokemon.Application.UseCases
+namespace Pokemon.Application.Pokemons.UseCases
 {
     public class GetPokemonListUseCase
     {
@@ -12,9 +12,10 @@ namespace Pokemon.Application.UseCases
             _pokemonService = pokemonService;
         }
 
-        public async Task<PokemonListResult> ExecuteAsync(int offset = 0, int limit = 20)
+        public async Task<PokemonListResult> ExecuteAsync()
         {
-            var domainList = await _pokemonService.GetPokemonListAsync(offset, limit);
+            var aleatoryOffset = new Random().Next(0, 10000);
+            var domainList = await _pokemonService.GetPokemonListAsync(offset: aleatoryOffset, limit: 10);
 
             return new PokemonListResult
             {

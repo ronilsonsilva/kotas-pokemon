@@ -1,7 +1,7 @@
-﻿using Pokemon.Application.Results;
-using Pokemon.Domain.Contracts;
+﻿using Pokemon.Application.Pokemons.Results;
+using Pokemon.Domain.Contracts.Services;
 
-namespace Pokemon.Application.UseCases
+namespace Pokemon.Application.Pokemons.UseCases
 {
     public class GetPokemonDetailUseCase
     {

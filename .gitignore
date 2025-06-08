@@ -14,3 +14,5 @@
 /src/Pokemon.Infrastructure.PokeClient/bin/Debug/net9.0
 /src/Pokemon.Infrastructure.PokeClient/obj
 /src/.vs/ProjectEvaluation
+/src/Pokemon.Infrastructure.Data/bin/Debug/net9.0
+/src/Pokemon.Infrastructure.Data/obj

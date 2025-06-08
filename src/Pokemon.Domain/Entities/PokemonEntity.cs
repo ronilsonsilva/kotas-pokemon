@@ -2,8 +2,9 @@
 {
     public class PokemonEntity
     {
-        public int Id { get; }
+        public int Id { get; set; }
         public string Name { get; }
+        public Guid MestrePokemonId { get; set; }
         public int BaseExperience { get; }
         public int Height { get; }
         public int Weight { get; }
@@ -25,7 +26,8 @@
             IEnumerable<PokemonType> types,
             IEnumerable<PokemonStat> stats,
             IEnumerable<PokemonMove> moves,
-            string? spriteFrontDefault)
+            string? spriteFrontDefault,
+            Guid mestrePokemonId)
         {
             Id = id;
             Name = name;
@@ -38,6 +40,11 @@
             Stats = stats.ToList().AsReadOnly();
             Moves = moves.ToList().AsReadOnly();
             SpriteFrontDefault = spriteFrontDefault;
+            MestrePokemonId = mestrePokemonId;
+        }
+
+        protected PokemonEntity()
+        {
         }
     }
 }

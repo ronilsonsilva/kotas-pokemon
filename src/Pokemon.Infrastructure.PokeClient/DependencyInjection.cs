@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Pokemon.Domain.Contracts;
+using Pokemon.Domain.Contracts.Services;
 using Refit;
 
 namespace Pokemon.Infrastructure.PokeClient

@@ -1,6 +1,6 @@
 ﻿using Pokemon.Domain.Entities;
 
-namespace Pokemon.Domain.Contracts
+namespace Pokemon.Domain.Contracts.Services
 {
     public interface IPokemonService
     {
@@ -19,4 +19,6 @@ namespace Pokemon.Domain.Contracts
         /// <returns>Detalhes do pokémon ou null se não encontrado.</returns>
         Task<PokemonEntity?> GetPokemonByNameAsync(string name);
     }
+
+
 }

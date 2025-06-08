@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokemon.Api", "Pokemon.Api\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokemon.Infrastructure.PokeClient", "Pokemon.Infrastructure.PokeClient\Pokemon.Infrastructure.PokeClient.csproj", "{45B25C44-AD46-43D8-A2E3-2321B49D1994}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokemon.Infrastructure.Data", "Pokemon.Infrastructure.Data\Pokemon.Infrastructure.Data.csproj", "{42171ED1-F340-41E9-B3CD-FE331ACF7F42}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{45B25C44-AD46-43D8-A2E3-2321B49D1994}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45B25C44-AD46-43D8-A2E3-2321B49D1994}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45B25C44-AD46-43D8-A2E3-2321B49D1994}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42171ED1-F340-41E9-B3CD-FE331ACF7F42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42171ED1-F340-41E9-B3CD-FE331ACF7F42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42171ED1-F340-41E9-B3CD-FE331ACF7F42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42171ED1-F340-41E9-B3CD-FE331ACF7F42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
