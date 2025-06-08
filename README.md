@@ -1,50 +1,190 @@
-# Backend Challenge - Pokémons
+# Pokemon API
 
-## Introdução
+API RESTful para integração com a [PokeAPI](https://pokeapi.co/), persistência de dados em SQLite e gerenciamento de mestres pokémon, seguindo o padrão Clean Architecture.
 
-Este é um teste para que possamos ver as suas habilidades como Backend Developer.
+---
 
-Nesse teste você deverá desenvolver um projeto para listar pokémons, utilizando como base a API [https://pokeapi.co/](https://pokeapi.co/ "https://pokeapi.co/").
+## Sumário
 
-[SPOILER] As instruções de entrega e apresentação do teste estão no final deste Readme (=
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Endpoints](#endpoints)
+  - [Pokémon](#pokémon)
+  - [Mestre Pokémon](#mestre-pokémon)
+- [Como Rodar o Projeto](#como-rodar-o-projeto)
+  - [Pré-requisitos](#pré-requisitos)
+  - [Configuração do Banco de Dados](#configuração-do-banco-de-dados)
+  - [Executando as Migrations](#executando-as-migrations)
+  - [Executando a API](#executando-a-api)
+- [Observações](#observações)
 
-### Antes de começar
- 
-- O projeto deve utilizar a Linguagem específica na avaliação. Por exempo: C#
-- Considere como deadline da avaliação a partir do início do teste. Caso tenha sido convidado a realizar o teste e não seja possível concluir dentro deste período, avise a pessoa que o convidou para receber instruções sobre o que fazer.
-- Documentar todo o processo de investigação para o desenvolvimento da atividade (README.md no seu repositório); os resultados destas tarefas são tão importantes do que o seu processo de pensamento e decisões à medida que as completa, por isso tente documentar e apresentar os seus hipóteses e decisões na medida do possível.
+---
 
-## Backend-end
+## Estrutura do Projeto
 
-- Get para 10 Pokémon aleatórios
-- GetByID para 1 Pokémon específico
-- Cadastro do mestre pokemon (dados básicos como nome, idade e cpf) em SQLite
-- Post para informar que um Pokémon foi capturado.
-- Listagem dos Pokémon já capturados.
-  
+O projeto segue o padrão **Clean Architecture**, dividido em:
 
-### Requisitos
+- **Pokemon.Api**: Camada de apresentação (controllers, endpoints REST, configuração do Swagger).
+- **Pokemon.Application**: Casos de uso (use cases), DTOs de request/result, regras de aplicação.
+- **Pokemon.Domain**: Entidades de domínio, interfaces de repositórios e serviços.
+- **Pokemon.Infrastructure.PokeClient**: Integração com a PokeAPI usando Refit.
+- **Pokemon.Infrastructure.Data**: Persistência de dados com Entity Framework Core e SQLite.
 
-1 - Todos os endpoints devem retornar os dados básicos do Pokémon, suas evoluções e o base64 de sprite default de cada Pokémon.
+---
 
-## Readme do Repositório
+## Endpoints
 
-- Deve conter o título do projeto
-- Uma descrição sobre o projeto em frase
-- Deve conter uma lista com linguagem, framework e/ou tecnologias usadas
-- Como instalar e usar o projeto (instruções)
-- Não esqueça o [.gitignore](https://www.toptal.com/developers/gitignore)
-- Se está usando github pessoal, referencie que é um challenge by coodesh:  
+### Pokémon
 
->  This is a challenge by [Coodesh](https://coodesh.com/)
+#### `GET /api/pokemon`
+Retorna uma lista paginada de pokémons da PokeAPI.
 
-## Finalização e Instruções para a Apresentação
+- **Parâmetros de query:**
+  - `offset` (opcional): deslocamento do primeiro item (padrão: 0)
+  - `limit` (opcional): quantidade máxima de itens (padrão: 20)
+- **Resposta:**  
+  `200 OK`
 
-1. Adicione o link do repositório com a sua solução no teste
-2. Verifique se o Readme está bom e faça o commit final em seu repositório;
-3. Envie e aguarde as instruções para seguir. Caso o teste tenha apresentação de vídeo, dentro da tela de entrega será possível gravar após adicionar o link do repositório. Sucesso e boa sorte. =)
+---
 
+#### `GET /api/pokemon/{name}`
+Retorna os detalhes de um pokémon específico pelo nome.
 
-## Suporte
+- **Parâmetro de rota:**  
+  - `name`: nome do pokémon
+- **Resposta:**  
+  `200 OK` com detalhes do pokémon  
+  `404 Not Found` se não encontrado
 
-Para tirar dúvidas sobre o processo envie uma mensagem diretamente a um especialista no chat da plataforma. 
+---
+
+#### `POST /api/pokemon/capturar`
+Captura um pokémon para um mestre, integrando com a PokeAPI e salvando na base local.
+
+- **Body:**
+- **Resposta:**  
+  `201 Created` com dados do pokémon capturado  
+  `404 Not Found` se o pokémon não for encontrado na PokeAPI
+
+---
+
+#### `GET /api/pokemon/capturados`
+Lista os pokémons capturados na base de dados, paginado.
+
+- **Parâmetros de query:**
+  - `page` (opcional): número da página (padrão: 1)
+  - `pageSize` (opcional): tamanho da página (padrão: 10)
+- **Resposta:**  
+  `200 OK` com lista paginada dos pokémons capturados
+
+---
+
+### Mestre Pokémon
+
+#### `POST /api/mestrepokemon`
+Adiciona um novo mestre pokémon.
+
+- **Body:**
+- **Resposta:**  
+  `201 Created` com dados do mestre criado
+
+---
+
+#### `PUT /api/mestrepokemon`
+Atualiza um mestre pokémon existente.
+
+- **Body:**
+- **Resposta:**  
+  `200 OK` com dados atualizados  
+  `404 Not Found` se não encontrado
+
+---
+
+#### `DELETE /api/mestrepokemon/{id}`
+Remove um mestre pokémon pelo id.
+
+- **Parâmetro de rota:**  
+  - `id`: GUID do mestre
+- **Resposta:**  
+  `204 No Content`  
+  `404 Not Found` se não encontrado
+
+---
+
+#### `GET /api/mestrepokemon/{id}`
+Obtém um mestre pokémon pelo id.
+
+- **Parâmetro de rota:**  
+  - `id`: GUID do mestre
+- **Resposta:**  
+  `200 OK` com dados do mestre  
+  `404 Not Found` se não encontrado
+
+---
+
+#### `GET /api/mestrepokemon`
+Lista todos os mestres pokémon paginados.
+
+- **Parâmetros de query:**
+  - `page` (opcional): número da página (padrão: 1)
+  - `pageSize` (opcional): tamanho da página (padrão: 10)
+- **Resposta:**  
+  `200 OK` com lista paginada dos mestres
+
+---
+
+## Como Rodar o Projeto
+
+### Pré-requisitos
+
+- Visual Studio 2022 ou superior
+- .NET 9 SDK
+- (Opcional) [EF Core Tools](https://learn.microsoft.com/ef/core/cli/dotnet) para migrations
+
+---
+
+### Configuração do Banco de Dados
+
+No arquivo `appsettings.json` do projeto `Pokemon.Api`, adicione:
+```json
+{
+  "ConnectionStrings": {
+	"DefaultConnection": "Data Source=pokemon.db"
+  }
+}
+```
+
+---
+
+### Executando as Migrations
+
+1. Abra o **Package Manager Console** no Visual Studio.
+2. Execute: 
+   ```
+   Add-Migration InitialCreate -Project Pokemon.Infrastructure.Data -StartupProject Pokemon.Api
+   ```
+   Isso criará a migration inicial para o banco de dados SQLite.
+3. Depois, aplique a migration: 
+   ```
+   Update-Database -Project Pokemon.Infrastructure.Data -StartupProject Pokemon.Api
+   ```
+
+---
+
+### Executando a API
+
+1. No Visual Studio, selecione o projeto de inicialização `Pokemon.Api`.
+2. Pressione **F5** ou clique em **Iniciar**.
+3. Acesse o Swagger em `https://localhost:{porta}/swagger` para testar os endpoints.
+
+---
+
+## Observações
+
+- O projeto segue Clean Architecture, separando responsabilidades em camadas.
+- A integração com a PokeAPI é feita via Refit.
+- O banco de dados local é SQLite, facilmente portável para outros providers.
+- Todos os endpoints estão documentados no Swagger.
+
+---
+
+**Dúvidas ou sugestões? Abra uma issue ou entre em contato!**
