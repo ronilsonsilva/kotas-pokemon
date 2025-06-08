@@ -27,12 +27,12 @@ namespace Pokemon.Api.Controllers
         }
 
         /// <summary>
-        /// Returns a paginated list of pokémons.
+        /// Retorna uma lista paginada de pokémons.
         /// </summary>
-        /// <param name="offset">The offset of the first item to return.</param>
-        /// <param name="limit">The maximum number of items to return.</param>
-        /// <returns>Paginated list of pokémons.</returns>
-        /// <response code="200">Returns the list of pokémons.</response>
+        /// <param name="offset">O deslocamento do primeiro item a ser retornado.</param>
+        /// <param name="limit">A quantidade máxima de itens a ser retornada.</param>
+        /// <returns>Lista paginada de pokémons.</returns>
+        /// <response code="200">Retorna a lista de pokémons.</response>
         [HttpGet]
         [ProducesResponseType(typeof(PokemonListResult), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetList()
@@ -42,12 +42,12 @@ namespace Pokemon.Api.Controllers
         }
 
         /// <summary>
-        /// Returns the details of a specific pokémon by name.
+        /// Retorna os detalhes de um pokémon específico pelo nome.
         /// </summary>
-        /// <param name="name">The name of the pokémon.</param>
-        /// <returns>Pokémon details.</returns>
-        /// <response code="200">Returns the pokémon details.</response>
-        /// <response code="404">If the pokémon is not found.</response>
+        /// <param name="name">O nome do pokémon.</param>
+        /// <returns>Detalhes do pokémon.</returns>
+        /// <response code="200">Retorna os detalhes do pokémon.</response>
+        /// <response code="404">Se o pokémon não for encontrado.</response>
         [HttpGet("{name}")]
         [ProducesResponseType(typeof(PokemonDetailResult), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
